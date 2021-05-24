@@ -73,12 +73,12 @@ class Vector3():
         self.Y = y
         self.Z = z
 
-    def get_values(self):
+    def get(self):
         """
         Returns:
             (float, float, float)
         """
-        return [self.X, self.Y, self.Z]
+        return (self.X, self.Y, self.Z)
 
     def offset(self, x=0.0, y=0.0, z=0.0):
         """
@@ -94,8 +94,25 @@ class Vector3():
             not isinstance(y, (float, int)) or
             not isinstance(z, (float, int))
         ):
-            return Vector3()
+            raise ValueError("X/Y/Z must be Float/Int.")
         return Vector3(self.X + x, self.Y + y, self.Z + z)
+
+    def scale(self, x=1.0, y=1.0, z=1.0):
+        """
+        Parameters:
+            float x scale
+            float y scale
+            float z scale
+        Returns:
+            Vector3 instance, given the scale.
+        """
+        if (
+            not isinstance(x, (float, int)) or
+            not isinstance(y, (float, int)) or
+            not isinstance(z, (float, int))
+        ):
+            raise ValueError("X/Y/Z must be Float/Int.")
+        return Vector3(self.X * x, self.Y * y, self.Z * z)
 
     @property
     def X(self):
