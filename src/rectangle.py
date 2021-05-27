@@ -2,31 +2,29 @@
 Rectangle
 """
 
-from .vector3 import Vector3
+from .vector import Vector2
 
 
 class Rectangle():
     """
-    Rectangle
-    For simple Rectangle things.
     Parameters
     ----------
-        Vector3 center of Rectangle
+        Vector2
     """
 
-    __slots__ = ["__center", "__height", "__width"]
+    __slots__ = ["__bottom_right", "__top_left"]
 
     def __init__(
-        self, center=Vector3(), height=1.0, width=1.0,
-        colors=None, scale=1.0, texcoords=None
+        self, top_left, bottom_right
     ):
         if (
-            not isinstance(width, float) or
-            not isinstance(height, float)
-        ):
-            raise ValueError("Width/Height must be floats.")
-        elif not isinstance(center, Vector3):
-            raise ValueError("Center must be a Vector3")
+            not all(
+                isinstance(i, Vector3) for i in [
+                    top_left, top_right, bottom_left, bottom_right
+                ]
+            )
+        ):            
+            raise ValueError("Corners ")
 
         self.__center = center
 

@@ -1,6 +1,10 @@
 """
 Vector
 
+This was created for mostly learning.  I wanted to
+see how one could create a base Vector class that
+Vector2... 3... etc could inherit from.
+
 Can dynamic methods be properties?
 Can we have dynamic args like x=0.0 for offset/scale?
     Could be dynamic method
@@ -10,6 +14,12 @@ Can we have dynamic args like x=0.0 for offset/scale?
 
 class Descriptor(object):
     """
+    A Descriptor is like @property.setter.  It allows
+    us to define a class variable as a getter/setter.
+
+    The one issue is that Descriptors have to be declared
+    in the class, not the instance.  So we use an internal
+    dictionary for each instance to manage their values.
     """
 
     def __init__(self):
@@ -24,7 +34,11 @@ class Descriptor(object):
 
 class DescriptorOwner(type):
     """
-    Find all descriptors, auto-set their labels
+    Find all descriptors, auto-set their labels.
+
+    By declaring __metaclass__ = DescriptorOwner we
+    can easily create and manage all Descriptors in a
+    class.
     """
 
     def __new__(cls, name, bases, attrs):
@@ -40,6 +54,8 @@ class Vector():
         (float, ...) or [float, ...] or float, float
     """
 
+    # Since we don't define Descriptors, this isn't required,
+    # but I left it here 'cause... uhm... I really don't know.
     __metaclass__ = DescriptorOwner
     __slots__ = ["__dict__", "__values"]
 
@@ -72,15 +88,6 @@ class Vector():
             setattr(self, v.upper(), Descriptor())
             setattr(self, v.upper(), self.__values[v])
 
-            """
-            def value_method(self):
-                print(v)
-                return self.__values[v]
-            value_method.__doc__ = "Nothing yet"
-            value_method.__name__ = v.upper()
-            setattr(self.__class__, value_method.__name__, value_method)
-            """
-
     def __repr__(self):
         """
         Returns:
@@ -98,9 +105,9 @@ class Vector():
     def __eq__(self, other):
         """
         Parameters:
-            VectorX
+            Vector
         Returns:
-            bool if this Vector2 is equal to another Vector2.
+            bool if this Vector is equal to another Vector.
         """
         if not isinstance(other, self.__class__):
             return False
@@ -109,9 +116,9 @@ class Vector():
     def __sub__(self, other):
         """
         Parameters:
-            VectorX
+            Vector
         Returns:
-            VectorX
+            Vector
         """
         if not isinstance(other, self.__class__):
             raise ValueError(f"Expected {self.__class__}")
@@ -154,6 +161,18 @@ class Vector():
 
 
 class Vector2(Vector):
+    """
+    Vector2
+    """
 
     def __init__(self, *args):
         Vector.__init__(self, *args, values=["x", "y"])
+
+
+class Vector3(Vector):
+    """
+    Vector3
+    """
+
+    def __init__(self, *args):
+        Vector.__init__(self, *args, values=["x", "y", "z"])
