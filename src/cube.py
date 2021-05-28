@@ -68,5 +68,7 @@ class Cube:
 
     def get_triangles(self):
         """
+        Returns:
+            list[Triangle] the triangles that make up this cube.
         """
         return self.__triangles

@@ -111,7 +111,7 @@ class Vector():
         """
         if not isinstance(other, self.__class__):
             return False
-        return self.get_value_list() == other.get_value_list()
+        return self.get_list() == other.get_list()
 
     def __sub__(self, other):
         """
@@ -124,7 +124,7 @@ class Vector():
             raise ValueError(f"Expected {self.__class__}")
         return self.__class__(
             [j - k for (j, k) in zip(
-                self.get_value_list(), other.get_value_list()
+                self.get_list(), other.get_list()
             )])
 
     def get(self):
@@ -134,12 +134,19 @@ class Vector():
         """
         return self.__values
 
-    def get_value_list(self):
+    def get_list(self):
         """
         Returns:
             [float, ...]
         """
         return list(self.__values.values())
+
+    def get_tuple(self):
+        """
+        Returns:
+            (float, ...)
+        """
+        return tuple(self.__values.values())
 
     def set(self, values):
         """
@@ -158,6 +165,18 @@ class Vector():
         for k in self.__values.keys():
             self.__values[k] = values[i]
             i += 1
+
+    def scale(self, **kwargs):
+        """
+        Parameters:
+            attributes = int/float
+        """
+        for k, v in kwargs.items():
+            if not isinstance(v, (int, float)):
+                raise ValueError("Expected Int/Float to scale.")
+            elif k in self.__values.keys():
+                self.__values[k] *= v
+        return self
 
 
 class Vector2(Vector):
