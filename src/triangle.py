@@ -13,6 +13,10 @@ from .vector3 import Vector3
 
 class Triangle:
     """
+    Parameters:
+        list[Vector3] of positions
+        list[Vector3] of colors
+        list[Vector2] of texcoords
     """
 
     __slots__ = ["__colors", "__normals", "__positions", "__texcoords"]
