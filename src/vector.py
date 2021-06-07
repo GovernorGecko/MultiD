@@ -4,11 +4,6 @@ Vector
 This was created for mostly learning.  I wanted to
 see how one could create a base Vector class that
 Vector2... 3... etc could inherit from.
-
-Can dynamic methods be properties?
-Can we have dynamic args like x=0.0 for offset/scale?
-    Could be dynamic method
-
 """
 
 
