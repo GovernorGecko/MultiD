@@ -76,7 +76,7 @@ class Vector():
         elif len(args) == len(self.__values):
             self.set([*args])
         else:
-            self.set(None)  # [0.0 for _ in self.__value_length])
+            self.set([0.0 for _ in range(len(self.__values))])
 
         # Dynamic variable creation!
         for v in self.__values.keys():
@@ -142,6 +142,18 @@ class Vector():
             (float, ...)
         """
         return tuple(self.__values.values())
+
+    def offset(self, **kwargs):
+        """
+        Parameters:
+            attributes = int/float
+        """
+        for k, v in kwargs.items():
+            if not isinstance(v, (int, float)):
+                raise ValueError("Expected Int/Float to offset.")
+            elif k in self.__values.keys():
+                self.__values[k] += v
+        return self
 
     def set(self, values):
         """
