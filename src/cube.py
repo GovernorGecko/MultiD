@@ -3,7 +3,7 @@ Cube
 """
 
 from .triangle import Triangle
-from .vector3 import Vector3
+from .vector import Vector3
 
 
 class Cube:
@@ -19,7 +19,7 @@ class Cube:
     __slots__ = ["__triangles"]
 
     def __init__(
-        self, center=Vector3(), colors=None, scale=1.0, texcoords=None
+        self, center, colors=None, scale=1.0, texcoords=None
     ):
         self.__triangles = []
 
@@ -33,14 +33,14 @@ class Cube:
         half_scale = scale * 0.5
 
         # Create our.. points
-        p1 = center.offset(x=-half_scale, y=half_scale, z=-half_scale)
-        p2 = p1.offset(x=1.0)
-        p3 = p1.offset(z=1.0)
-        p4 = p1.offset(x=1.0, z=1.0)
-        p5 = p1.offset(y=-1.0)
-        p6 = p5.offset(x=1.0)
-        p7 = p5.offset(z=1.0)
-        p8 = p5.offset(x=1.0, z=1.0)
+        p1 = Vector3(center.X - half_scale, center.Y + half_scale, center.Z - half_scale)
+        p2 = Vector3(p1.X, p1.Y, p1.Z).offset(x=1.0)
+        p3 = Vector3(p1.X, p1.Y, p1.Z).offset(z=1.0)
+        p4 = Vector3(p1.X, p1.Y, p1.Z).offset(x=1.0, z=1.0)
+        p5 = Vector3(p1.X, p1.Y, p1.Z).offset(y=-1.0)
+        p6 = Vector3(p5.X, p5.Y, p5.Z).offset(x=1.0)
+        p7 = Vector3(p5.X, p5.Y, p5.Z).offset(z=1.0)
+        p8 = Vector3(p5.X, p5.Y, p5.Z).offset(x=1.0, z=1.0)
 
         # Top
         self.__triangles.append(Triangle([p2, p1, p3]))
@@ -65,6 +65,12 @@ class Cube:
         # Bottom
         self.__triangles.append(Triangle([p6, p5, p7]))
         self.__triangles.append(Triangle([p7, p8, p6]))
+        
+    def __str__(self):
+        """
+        Returns the Triangles that make up this Cube.
+        """
+        return str(self.__triangles)
 
     def get_triangles(self):
         """
