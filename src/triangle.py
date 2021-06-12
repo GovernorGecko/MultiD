@@ -8,7 +8,7 @@ TexCoord, optional, a Vector2
 Color, optional, a Vector3
 """
 
-from .vector3 import Vector3
+from .vector import Vector3
 
 
 class Triangle:
@@ -82,7 +82,7 @@ class Triangle:
             [[float x 6]] x 3 vertexes of this triangle.
         """
         return [
-            [*p.get_values(), *self.__normals.get_values()]
+            [*p.get_tuple(), *self.__normals.get_tuple()]
             for p in self.__positions
         ]
 
