@@ -73,10 +73,15 @@ class Vector():
             isinstance(args[0], (list, tuple))
         ):
             self.set([v for v in args[0]])
+        elif(
+            len(args) > 0 and
+            isinstance(args[0], self.__class__)
+        ):
+            self.set([v for v in args[0].get_list()])
         elif len(args) == len(self.__values):
             self.set([*args])
         else:
-            self.set([0.0 for _ in range(len(self.__values))])
+            self.set(None)  # [0.0 for _ in range(len(self.__values))])
 
         # Dynamic variable creation!
         for v in self.__values.keys():
