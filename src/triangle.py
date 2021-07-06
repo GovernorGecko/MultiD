@@ -8,7 +8,7 @@ TexCoord, optional, a Vector2
 Color, optional, a Vector3
 """
 
-from .vector import Vector3
+from .vector import Vector3, Vector2
 
 
 class Triangle:
@@ -22,17 +22,39 @@ class Triangle:
     __slots__ = ["__colors", "__normals", "__positions", "__texcoords"]
 
     def __init__(self, positions, colors=None, texcoords=None):
-        self.__colors = colors
-        self.__texcoords = texcoords
 
-        # Expecting three Vector3s
+        # Position
         if (
             isinstance(positions, list) and len(positions) == 3 and
             all(isinstance(p, Vector3) for p in positions)
         ):
             self.__positions = positions
         else:
-            raise ValueError("Expecting a List of Vector3s.")
+            raise ValueError("Positions must be a List of Vector3s.")
+
+        # Colors
+        if colors is not None:
+            if (
+                isinstance(colors, list) and len(colors) == 3 and
+                all(isinstance(c, Vector3) for c in colors)
+            ):
+                self.__colors = colors
+            else:
+                raise ValueError("Colors must be a List of Vector3s.")
+        else:
+            self.__colors = None
+
+        # TexCoords
+        if texcoords is not None:
+            if (
+                isinstance(texcoords, list) and len(texcoords) == 3 and
+                all(isinstance(t, Vector2) for t in texcoords)
+            ):
+                self.__texcoords = texcoords
+            else:
+                raise ValueError("TexCoords must be a List of Vector2s.")
+        else:
+            self.__texcoords = None
 
         # Calculate Normals
         """
@@ -76,15 +98,36 @@ class Triangle:
             return False
         return all(other.has_position(p) for p in self.__positions)
 
-    def get_vertex_data(self):
+    def get_vertex_data(
+        self, positions=True, normals=True,
+        colors=True, texcoords=True
+    ):
         """
+        Parameters:
+            4 optional bools; positions, normals, colors, texcoords.
+            These tell the getter to return these values or not.
         Returns:
             [[float x 6]] x 3 vertexes of this triangle.
+        """
+        vertex_data = []
+        for i in range(0, 3):
+            vertex = []
+            if positions:
+                vertex.extend(self.__positions[i].get_tuple())
+            if normals:
+                vertex.extend(self.__normals.get_tuple())
+            if colors and self.__colors is not None:
+                vertex.extend(self.__colors[i].get_tuple())
+            if texcoords and self.__texcoords is not None:
+                vertex.extend(self.__texcoords[i].get_tuple())
+            vertex_data.append(vertex)
+        return vertex_data
         """
         return [
             [*p.get_tuple(), *self.__normals.get_tuple()]
             for p in self.__positions
         ]
+        """
 
     def has_position(self, position):
         """
