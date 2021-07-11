@@ -98,6 +98,34 @@ class Triangle:
             return False
         return all(other.has_position(p) for p in self.__positions)
 
+    def get_colors(self):
+        """
+        Returns:
+            List<Vector3> colors
+        """
+        return self.__colors
+
+    def get_normals(self):
+        """
+        Returns:
+            List<Vector3> normals
+        """
+        return self.__normals
+
+    def get_positions(self):
+        """
+        Returns:
+            List<Vector3> positions
+        """
+        return self.__positions
+
+    def get_texcoords(self):
+        """
+        Returns:
+            List<Vector2> texcoords
+        """
+        return self.__texcoords
+
     def get_vertex_data(
         self, positions=True, normals=True,
         colors=True, texcoords=True
