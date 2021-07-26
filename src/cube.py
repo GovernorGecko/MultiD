@@ -65,7 +65,7 @@ class Cube:
         # Bottom
         self.__triangles.append(Triangle([p5, p6, p8]))
         self.__triangles.append(Triangle([p8, p7, p5]))
-        
+
     def __str__(self):
         """
         Returns the Triangles that make up this Cube.
