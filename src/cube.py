@@ -24,7 +24,7 @@ class Cube:
         self.__triangles = []
 
         # Base center should be a Vector3
-        if not isinstance(center, Vector3):
+        if not type(center).__name__ == "Vector3":
             raise ValueError("Expected a Vector3 for the center.")
 
         # Scale.
