@@ -8,7 +8,7 @@ TexCoord, optional, a Vector2
 Color, optional, a Vector3
 """
 
-from .vector import Vector3, Vector2
+from .vector import Vector3
 
 
 class Triangle:
@@ -26,7 +26,7 @@ class Triangle:
         # Position
         if (
             isinstance(positions, list) and len(positions) == 3 and
-            all(isinstance(p, Vector3) for p in positions)
+            all(type(p).__name__ == "Vector3" for p in positions)
         ):
             self.__positions = positions
         else:
@@ -36,7 +36,7 @@ class Triangle:
         if colors is not None:
             if (
                 isinstance(colors, list) and len(colors) == 3 and
-                all(isinstance(c, Vector3) for c in colors)
+                all(type(c).__name__ == "Vector3" for c in colors)
             ):
                 self.__colors = colors
             else:
@@ -48,7 +48,7 @@ class Triangle:
         if texcoords is not None:
             if (
                 isinstance(texcoords, list) and len(texcoords) == 3 and
-                all(isinstance(t, Vector2) for t in texcoords)
+                all(type(t).__name__ == "Vector2" for t in texcoords)
             ):
                 self.__texcoords = texcoords
             else:
@@ -94,7 +94,7 @@ class Triangle:
         Returns:
             bool of whether both triangles have the same vertexes.
         """
-        if not isinstance(other, Triangle):
+        if not type(other).__name__ == "Triangle":
             return False
         return all(other.has_position(p) for p in self.__positions)
 
@@ -164,6 +164,6 @@ class Triangle:
         Returns:
             bool of whether the given Vector3 matches one of ours.
         """
-        if not isinstance(position, Vector3):
+        if not type(position).__name__ == "Vector3":
             return False
         return position in self.__positions
