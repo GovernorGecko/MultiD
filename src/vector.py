@@ -45,7 +45,7 @@ class DescriptorOwner(type):
 
 class Vector():
     """
-    Parameters:
+    parameters
         (float, ...) or [float, ...] or float, float
     """
 
@@ -90,24 +90,26 @@ class Vector():
 
     def __repr__(self):
         """
-        Returns:
-            __str__()
+        returns
+            string
         """
         return self.__str__()
 
     def __str__(self):
         """
-        Returns:
-            str of our values.
+        returns
+            string
+                Our values.
         """
         return f"{self.__values}"
 
     def __eq__(self, other):
         """
-        Parameters:
+        parameters
             Vector
-        Returns:
-            bool if this Vector is equal to another Vector.
+        returns
+            bool
+                If this Vector is equal to another Vector.
         """
         if not isinstance(other, self.__class__):
             return False
@@ -115,9 +117,9 @@ class Vector():
 
     def __sub__(self, other):
         """
-        Parameters:
+        parameters
             Vector
-        Returns:
+        returns
             Vector
         """
         if not isinstance(other, self.__class__):
@@ -129,28 +131,29 @@ class Vector():
 
     def get(self):
         """
-        Returns:
-            dict of values
+        returns
+            dict
+                values
         """
         return self.__values
 
     def get_list(self):
         """
-        Returns:
+        returns
             [float, ...]
         """
         return list(self.__values.values())
 
     def get_tuple(self):
         """
-        Returns:
+        returns
             (float, ...)
         """
         return tuple(self.__values.values())
 
     def offset(self, **kwargs):
         """
-        Parameters:
+        parameters
             attributes = int/float
         """
         for k, v in kwargs.items():
@@ -162,7 +165,7 @@ class Vector():
 
     def set(self, values):
         """
-        Parameters:
+        parameters
             [float, ...]
         """
         if (
@@ -180,7 +183,7 @@ class Vector():
 
     def scale(self, **kwargs):
         """
-        Parameters:
+        parameters
             attributes = int/float
         """
         for k, v in kwargs.items():

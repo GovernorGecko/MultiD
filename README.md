@@ -2,4 +2,6 @@
 3D/2D Classes
 
 # TODO
-- Update Cube/Triangle to handle Color/Texcoords
+- Cube
+    - Get AABB
+    - Support Colors/TexCoords

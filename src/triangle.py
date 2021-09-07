@@ -14,9 +14,12 @@ from .vector import Vector3
 class Triangle:
     """
     Parameters:
-        list[Vector3] of positions
-        list[Vector3] of colors
-        list[Vector2] of texcoords
+        list[Vector3]
+            positions
+        list[Vector3]
+            colors
+        list[Vector2]
+            texcoords
     """
 
     __slots__ = ["__colors", "__normals", "__positions", "__texcoords"]
