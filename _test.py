@@ -23,7 +23,29 @@ t = Triangle([p1, p2, p3], [c1, c2, c3], [t1, t2, t3])
 print("testing a triangle")
 print(t)
 
-c = Cube(p1)
+color_data = [
+    Vector3(1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, 0.0),
+    Vector3(1.0, 0.0, 0.0),
+    Vector3(0.0, 0.0, 0.0),
+    Vector3(0.0, 1.0, 0.0),
+    Vector3(0.0, 1.0, 1.0),
+    Vector3(0.0, 0.0, 1.0),
+    Vector3(1.0, 0.0, 1.0),
+]
+
+texcoord_data = [
+    Vector2(1.0, 1.0),
+    Vector2(1.0, 0.0),
+    Vector2(0.0, 0.0),
+    Vector2(0.0, 1.0),
+    Vector2(1.0, 1.0),
+    Vector2(1.0, 0.0),
+    Vector2(0.0, 0.0),
+    Vector2(0.0, 1.0),
+]
+
+c = Cube(p1, colors=color_data, texcoords=texcoord_data)
 
 print("testing a cube")
 print(c)
