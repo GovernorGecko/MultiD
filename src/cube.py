@@ -8,6 +8,17 @@ from .vector import Vector3
 
 class Cube:
     """
+    parameters
+        Vector3
+            center of the cube
+        (optional)
+        list[Vector3]
+            List of colors, starting at p1 and going to p8
+        float
+            Scale for Cube size
+        list[Vector2]
+            List of Texcoords, starting at p1 and goign to p8
+
         p1----p2
        /|*****/|
       p3----p4*|
@@ -19,7 +30,8 @@ class Cube:
     __slots__ = ["__triangles"]
 
     def __init__(
-        self, center, colors=None, scale=1.0, texcoords=[None]
+        self, center,
+        colors=None, scale=1.0, texcoords=None
     ):
         self.__triangles = []
 
@@ -39,21 +51,33 @@ class Cube:
                 not all(type(c).__name__ == "Vector3" for c in colors)
             ):
                 raise ValueError("Colors must be a List of Vector3s.")
-        else:
-            colors = [None for i in range(12)]
+
+        # TexCoords must be 8 Vector2s
+        if texcoords is not None:
+            if (
+                not isinstance(texcoords, list) or len(texcoords) != 8 or
+                not all(type(t).__name__ == "Vector2" for t in texcoords)
+            ):
+                raise ValueError("TexCoords must be a List of Vector2s.")
 
         # Sequence of points
         sequence_of_points = [
+            # top
             1, 0, 2,
             2, 3, 1,
+            # side x+
             1, 3, 7,
             7, 5, 1,
+            # side x-
             2, 0, 4,
             4, 6, 2,
+            # side z+
             3, 2, 6,
             6, 7, 3,
+            # side z-
             0, 1, 5,
             5, 4, 0,
+            # bottom
             5, 4, 6,
             6, 7, 5,
         ]
@@ -73,19 +97,21 @@ class Cube:
 
         # Iterate our sequence of points
         for i in range(0, len(sequence_of_points), 3):
+            current_sequence_indexes = sequence_of_points[i:i + 3]
             self.__triangles.append(
                 Triangle(
-                    [
-                        points[
-                            sequence_of_points[i]
-                        ],
-                        points[
-                            sequence_of_points[i + 1]
-                        ],
-                        points[
-                            sequence_of_points[i + 2]
-                        ]
-                    ],
+                    self.__get_list_values_from_indexes(
+                        points,
+                        current_sequence_indexes,
+                    ),
+                    self.__get_list_values_from_indexes(
+                        colors,
+                        current_sequence_indexes,
+                    ),
+                    self.__get_list_values_from_indexes(
+                        texcoords,
+                        current_sequence_indexes,
+                    )
                 )
             )
 
@@ -123,10 +149,18 @@ class Cube:
         """
         return str(self.__triangles)
 
-    def get_aabb(sslf):
+    def __get_list_values_from_indexes(self, list_data, indexes):
         """
+        Assumes indexes exist in list.
+        parameters
+            list[var]
+            list[int]
+        returns
+            None or list[var]
         """
-        print("hi")
+        if list_data is not None:
+            return [list_data[i] for i in indexes]
+        return None
 
     def get_triangles(self):
         """

@@ -3,5 +3,8 @@
 
 # TODO
 - Cube
-    - Get AABB
-    - Support Colors/TexCoords
+    - Supporting Methods?
+        - AABB...
+- Vector2/3
+    - Identity
+    - Zero
