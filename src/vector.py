@@ -129,6 +129,19 @@ class Vector():
                 self.get_list(), other.get_list()
             )])
 
+    def __truediv__(self, divider):
+        """
+        parameters
+            int
+        returns
+            Vector
+        """
+        if not isinstance(divider, int):
+            raise ValueError("Expected divider to be an int")
+        return self.__class__(
+            [j / divider for j in self.get_list()]
+        )
+
     def get(self):
         """
         returns
