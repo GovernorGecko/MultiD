@@ -20,7 +20,7 @@ class Plane():
 
     parameters
         float
-        list[Vector2 x 4]         
+        list[Vector2 x 4]
         list[Vector3 x 4]
 
     Yaw, Pitch, Roll
@@ -71,7 +71,7 @@ class Plane():
             raise ValueError("Expected a List of 4 Vector2s for TexCoords")
 
         # Sequence of points
-        sequence_of_points = [  
+        sequence_of_points = [
             1, 0, 2,
             2, 3, 1,
         ]
