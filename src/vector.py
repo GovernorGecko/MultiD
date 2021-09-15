@@ -103,6 +103,20 @@ class Vector():
         """
         return f"{self.__values}"
 
+    def __add__(self, other):
+        """
+        parameters
+            Vector
+        returns
+            Vector
+        """
+        if not isinstance(other, self.__class__):
+            raise ValueError(f"Expected {self.__class__}")
+        return self.__class__(
+            [j + k for (j, k) in zip(
+                self.get_list(), other.get_list()
+            )])
+
     def __eq__(self, other):
         """
         parameters

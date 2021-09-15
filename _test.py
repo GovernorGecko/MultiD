@@ -3,7 +3,7 @@ Testing MultiD features
 """
 
 # from src.cube import Cube
-from src.square import Square
+from src.plane import Plane
 # from src.triangle import Triangle
 from src.vector import Vector3, Vector2
 
@@ -17,9 +17,19 @@ c3 = Vector3(0.0, 0.0, 1.0)  # B
 
 t1 = Vector2(0.0, 0.0)
 t2 = Vector2(1.0, 0.0)
-t3 = Vector2(1.0, 1.0)
+t3 = Vector2(0.0, 1.0)
+t4 = Vector2(1.0, 1.0)
 
-s1 = Square(p1)
+plane = Plane(
+    colors=[c1, c2, c3, c1],
+    texcoords=[t1, t2, t3, t4],
+)
+
+print(
+    plane.get_triangles(
+        offset=Vector3(0.0, 0.0, 0.0)
+    )
+)
 
 """
 
