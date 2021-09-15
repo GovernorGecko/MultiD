@@ -103,6 +103,20 @@ class Vector():
         """
         return f"{self.__values}"
 
+    def __add__(self, other):
+        """
+        parameters
+            Vector
+        returns
+            Vector
+        """
+        if not isinstance(other, self.__class__):
+            raise ValueError(f"Expected {self.__class__}")
+        return self.__class__(
+            [j + k for (j, k) in zip(
+                self.get_list(), other.get_list()
+            )])
+
     def __eq__(self, other):
         """
         parameters
@@ -128,6 +142,19 @@ class Vector():
             [j - k for (j, k) in zip(
                 self.get_list(), other.get_list()
             )])
+
+    def __truediv__(self, divider):
+        """
+        parameters
+            int
+        returns
+            Vector
+        """
+        if not isinstance(divider, int):
+            raise ValueError("Expected divider to be an int")
+        return self.__class__(
+            [j / divider for j in self.get_list()]
+        )
 
     def get(self):
         """
