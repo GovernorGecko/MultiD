@@ -3,6 +3,7 @@ Testing MultiD features
 """
 
 # from src.cube import Cube
+from src.matrix import Matrix
 from src.plane import Plane
 # from src.triangle import Triangle
 from src.vector import Vector3, Vector2
@@ -30,6 +31,8 @@ print(
         offset=Vector3(0.0, 0.0, 0.0)
     )
 )
+
+matrix = Matrix()
 
 """
 

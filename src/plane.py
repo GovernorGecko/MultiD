@@ -12,7 +12,6 @@ from .vector import Vector3
 
 class Plane():
     """
-
     p1----p2
     |      |
     |      |
@@ -22,8 +21,6 @@ class Plane():
         float
         list[Vector2 x 4]
         list[Vector3 x 4]
-
-    Yaw, Pitch, Roll
     """
 
     __slots__ = ["__triangles"]
@@ -133,6 +130,13 @@ class Plane():
         yaw=0.0, pitch=0.0, roll=0.0
     ):
         """
+        parameters
+            Vector3
+            float
+            float
+            float
+        returns
+            Vector3
         """
         return [
             t.get_offset_by(offset) for t in self.__triangles
