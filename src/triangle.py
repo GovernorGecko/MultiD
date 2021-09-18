@@ -13,10 +13,13 @@ from .vector import Vector3
 
 class Triangle:
     """
-    Parameters:
-        list[Vector3] of positions
-        list[Vector3] of colors
-        list[Vector2] of texcoords
+    parameters
+        list[Vector3]
+            positions
+        list[Vector3]
+            colors
+        list[Vector2]
+            texcoords
     """
 
     __slots__ = ["__colors", "__normals", "__positions", "__texcoords"]
@@ -75,23 +78,23 @@ class Triangle:
 
     def __repr__(self):
         """
-        Returns:
+        returns
             __str__
         """
         return self.__str__()
 
     def __str__(self):
         """
-        Returns:
+        returns
             string representation of our triangle.
         """
         return str(self.get_vertex_data())
 
     def __eq__(self, other):
         """
-        Parameters:
+        parameters
             Triangle
-        Returns:
+        returns
             bool of whether both triangles have the same vertexes.
         """
         if not type(other).__name__ == "Triangle":
@@ -100,28 +103,43 @@ class Triangle:
 
     def get_colors(self):
         """
-        Returns:
+        returns
             List<Vector3> colors
         """
         return self.__colors
 
     def get_normals(self):
         """
-        Returns:
+        returns
             List<Vector3> normals
         """
         return self.__normals
 
+    def get_offset_by(self, offset):
+        """
+        parameters
+            Vector3
+        returns
+            Triangle
+        """
+        if type(offset).__name__ == "Vector3":
+            return Triangle(
+                [v + offset for v in self.__positions],
+                self.__colors,
+                self.__texcoords
+            )
+        return self
+
     def get_positions(self):
         """
-        Returns:
+        returns
             List<Vector3> positions
         """
         return self.__positions
 
     def get_texcoords(self):
         """
-        Returns:
+        returns
             List<Vector2> texcoords
         """
         return self.__texcoords
@@ -131,10 +149,10 @@ class Triangle:
         colors=True, texcoords=True
     ):
         """
-        Parameters:
+        parameters
             4 optional bools; positions, normals, colors, texcoords.
             These tell the getter to return these values or not.
-        Returns:
+        returns
             [[float x 6]] x 3 vertexes of this triangle.
         """
         vertex_data = []
@@ -159,9 +177,9 @@ class Triangle:
 
     def has_position(self, position):
         """
-        Parameters:
+        parameters
             Vector3
-        Returns:
+        returns
             bool of whether the given Vector3 matches one of ours.
         """
         if not type(position).__name__ == "Vector3":

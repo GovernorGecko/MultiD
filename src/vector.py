@@ -45,7 +45,7 @@ class DescriptorOwner(type):
 
 class Vector():
     """
-    Parameters:
+    parameters
         (float, ...) or [float, ...] or float, float
     """
 
@@ -90,24 +90,40 @@ class Vector():
 
     def __repr__(self):
         """
-        Returns:
-            __str__()
+        returns
+            string
         """
         return self.__str__()
 
     def __str__(self):
         """
-        Returns:
-            str of our values.
+        returns
+            string
+                Our values.
         """
         return f"{self.__values}"
 
+    def __add__(self, other):
+        """
+        parameters
+            Vector
+        returns
+            Vector
+        """
+        if not isinstance(other, self.__class__):
+            raise ValueError(f"Expected {self.__class__}")
+        return self.__class__(
+            [j + k for (j, k) in zip(
+                self.get_list(), other.get_list()
+            )])
+
     def __eq__(self, other):
         """
-        Parameters:
+        parameters
             Vector
-        Returns:
-            bool if this Vector is equal to another Vector.
+        returns
+            bool
+                If this Vector is equal to another Vector.
         """
         if not isinstance(other, self.__class__):
             return False
@@ -115,9 +131,9 @@ class Vector():
 
     def __sub__(self, other):
         """
-        Parameters:
+        parameters
             Vector
-        Returns:
+        returns
             Vector
         """
         if not isinstance(other, self.__class__):
@@ -127,30 +143,44 @@ class Vector():
                 self.get_list(), other.get_list()
             )])
 
+    def __truediv__(self, divider):
+        """
+        parameters
+            int
+        returns
+            Vector
+        """
+        if not isinstance(divider, int):
+            raise ValueError("Expected divider to be an int")
+        return self.__class__(
+            [j / divider for j in self.get_list()]
+        )
+
     def get(self):
         """
-        Returns:
-            dict of values
+        returns
+            dict
+                values
         """
         return self.__values
 
     def get_list(self):
         """
-        Returns:
+        returns
             [float, ...]
         """
         return list(self.__values.values())
 
     def get_tuple(self):
         """
-        Returns:
+        returns
             (float, ...)
         """
         return tuple(self.__values.values())
 
     def offset(self, **kwargs):
         """
-        Parameters:
+        parameters
             attributes = int/float
         """
         for k, v in kwargs.items():
@@ -162,7 +192,7 @@ class Vector():
 
     def set(self, values):
         """
-        Parameters:
+        parameters
             [float, ...]
         """
         if (
@@ -180,7 +210,7 @@ class Vector():
 
     def scale(self, **kwargs):
         """
-        Parameters:
+        parameters
             attributes = int/float
         """
         for k, v in kwargs.items():
