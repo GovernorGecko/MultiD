@@ -3,7 +3,7 @@
 
 # TODO
 - Matrix
-    - Build out
+    - What extra methods?
     - https://www.basic-mathematics.com/multiply-matrices.html
     - https://en.wikipedia.org/wiki/Rotation_matrix
 - Plane

@@ -5,7 +5,7 @@ Testing MultiD features
 # from src.cube import Cube
 from src.matrix import Matrix
 # from src.plane import Plane
-# from src.triangle import Triangle
+from src.triangle import Triangle
 from src.vector import Vector3, Vector2
 
 p1 = Vector3(0.0, 0.0, 0.0)
@@ -21,10 +21,7 @@ t2 = Vector2(1.0, 0.0)
 t3 = Vector2(0.0, 1.0)
 t4 = Vector2(1.0, 1.0)
 
-matrix = Matrix(3, 1)
-matrix.set_value(0, 0, 4.0)
-matrix.set_value(1, 0, 5.0)
-matrix.set_value(2, 0, 6.0)
+matrix = Matrix(3, 1, [4.0, 5.0, 6.0])
 print(
     matrix.get_column_values(0)
 )
@@ -37,6 +34,9 @@ other_matrix.set_value(0, 2, 3.0)
 print(
     matrix * other_matrix
 )
+
+t = Triangle([p1, p2, p3])
+t.get_yaw(90)
 
 """
 plane = Plane(

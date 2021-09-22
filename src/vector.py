@@ -7,6 +7,9 @@ Vector2... 3... etc could inherit from.
 """
 
 
+from .matrix import Matrix
+
+
 class Descriptor(object):
     """
     A Descriptor is like @property.setter.  It allows
@@ -170,6 +173,13 @@ class Vector():
             [float, ...]
         """
         return list(self.__values.values())
+
+    def get_matrix(self):
+        """
+        returns
+            Matrix3x1
+        """
+        return Matrix(3, 1, list(self.__values.values()))
 
     def get_tuple(self):
         """

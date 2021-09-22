@@ -5,11 +5,14 @@ matrix.py
 
 class Matrix():
     """
+    parameters
+        int
+        int
     """
 
     __slots__ = ["__values"]
 
-    def __init__(self, rows=1, columns=1):
+    def __init__(self, rows=1, columns=1, values=[]):
 
         # Validate Columns and Rows
         if (
@@ -27,13 +30,30 @@ class Matrix():
             for _ in range(columns):
                 self.__values[i].append(0.0)
 
+        # Values?
+        if(
+            isinstance(values, list) and
+            len(values) == (rows * columns)
+        ):
+            i = 0
+            for j in range(rows):
+                for k in range(columns):
+                    self.__values[j][k] = values[i]
+                    i += 1
+
     def __str__(self):
         """
+        returns
+            string
         """
         return str(self.__values)
 
     def __mul__(self, other):
         """
+        parameters
+            Matrix
+        returns
+            Matrix
         """
 
         # Other a Matrix?
@@ -52,10 +72,8 @@ class Matrix():
         # Our Rows to Columns, multiplied by other Columns to Rows
         for i in range(self.get_rows_length()):
             for j in range(other.get_columns_length()):
-
                 new_matrix.set_value(
-                    i,
-                    j,
+                    i, j,
                     self.dot(
                         self.__values[i],
                         other.get_column_values(j),
@@ -67,6 +85,11 @@ class Matrix():
 
     def dot(self, K, L):
         """
+        parameters
+            list
+            list
+        returns
+            list
         """
         if len(K) != len(L):
             return 0
@@ -75,11 +98,17 @@ class Matrix():
 
     def get_columns_length(self):
         """
+        returns
+            int
         """
         return len(self.__values[0])
 
     def get_column_values(self, column):
         """
+        parameters
+            int
+        returns
+            int
         """
 
         # Valid Column
@@ -91,11 +120,18 @@ class Matrix():
 
     def get_rows_length(self):
         """
+        returns
+            int
         """
         return len(self.__values)
 
     def get_value(self, row, column):
         """
+        parameters
+            int
+            int
+        returns
+            float
         """
 
         # Valid Colunm/Row
@@ -110,6 +146,10 @@ class Matrix():
 
     def is_valid_column(self, column):
         """
+        parameters
+            int
+        returns
+            bool
         """
 
         # Valid Column
@@ -121,6 +161,12 @@ class Matrix():
         return True
 
     def is_valid_row(self, row):
+        """
+        parameters
+            int
+        returns
+            bool
+        """
 
         # Valid Row
         if (
@@ -132,6 +178,10 @@ class Matrix():
 
     def set_value(self, row, column, value):
         """
+        parameters
+            int
+            int
+            float
         """
 
         # Valid Column/Row

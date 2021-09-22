@@ -8,6 +8,10 @@ TexCoord, optional, a Vector2
 Color, optional, a Vector3
 """
 
+
+import math
+
+from .matrix import Matrix
 from .vector import Vector3
 
 
@@ -185,3 +189,39 @@ class Triangle:
         if not type(position).__name__ == "Vector3":
             return False
         return position in self.__positions
+
+    def get_yaw(self, angle):
+        """
+        """
+
+        # Angle okay?
+        if not isinstance(angle, (float, int)):
+            ValueError("Angle must be a float or int.")
+
+        # Yaw Matrix
+        yaw_matrix = Matrix(
+            3, 3,
+            [
+                math.cos(angle), -math.sin(angle), 0.0,
+                math.sin(angle), math.cos(angle), 0.0,
+                0.0, 0.0, 1.0,
+            ]
+        )
+
+        """
+        yaw_triangle = Triangle(
+            [
+                [
+                    (p.get_matrix() * yaw_matrix)
+                ] for p in self.__positions
+            ]
+        )
+        """
+
+        for p in self.__positions:
+            print(yaw_matrix * p.get_matrix())
+
+        # for v in self.__positions:
+
+        # print(yaw_triangle)
+                
