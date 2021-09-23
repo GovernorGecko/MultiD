@@ -107,6 +107,10 @@ class Triangle:
 
     def __mul__(self, other):
         """
+        parameters
+            Matrix
+        returns
+            Triangle
         """
         # Multiplying against a Matrix.
         if type(other).__name__ == "Matrix":

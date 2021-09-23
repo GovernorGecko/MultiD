@@ -139,5 +139,8 @@ class Plane():
             Vector3
         """
         return [
-            t.get_offset_by(offset) for t in self.__triangles
+            t.get_vertex_data(
+                offset=offset, yaw=yaw,
+                pitch=pitch, roll=roll
+            ) for t in self.__triangles
         ]
