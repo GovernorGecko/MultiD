@@ -112,6 +112,13 @@ class Plane():
                 )
             )
 
+    def __str__(self):
+        """
+        returns
+            str
+        """
+        str(self.get_triangles())
+
     def __get_list_values_from_indexes(self, list_data, indexes):
         """
         Assumes indexes exist in list.
@@ -139,8 +146,8 @@ class Plane():
             Vector3
         """
         return [
-            t.get_vertex_data(
+            t.get_transformed(
                 offset=offset, yaw=yaw,
-                pitch=pitch, roll=roll
+                pitch=pitch, roll=roll,
             ) for t in self.__triangles
         ]
