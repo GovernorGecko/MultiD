@@ -3,7 +3,7 @@
 
 # TODO
 - Matrix
-    - What extra methods?
+    - Clean up get pitch, yaw, roll
     - https://www.basic-mathematics.com/multiply-matrices.html
     - https://en.wikipedia.org/wiki/Rotation_matrix
 - Plane

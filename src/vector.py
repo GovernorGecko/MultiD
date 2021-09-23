@@ -179,7 +179,9 @@ class Vector():
         returns
             Matrix3x1
         """
-        return Matrix(3, 1, list(self.__values.values()))
+        return Matrix(
+            len(self.get_list()), 1, self.get_list()
+        )
 
     def get_tuple(self):
         """

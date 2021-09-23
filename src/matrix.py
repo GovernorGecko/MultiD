@@ -118,6 +118,13 @@ class Matrix():
         # Return
         return [row[column] for row in self.__values]
 
+    def get_as_list(self):
+        """
+        returns
+            list[float]
+        """
+        return [j for sub in self.__values for j in sub]
+
     def get_rows_length(self):
         """
         returns
