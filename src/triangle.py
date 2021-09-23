@@ -181,23 +181,18 @@ class Triangle:
         ):
             ValueError("Yaw/Pitch/Roll must be a Float or Int")
 
-        # Yaw, or Z
-        yaw_matrix = Matrix(
-            3, 3,
-            [
-                math.cos(yaw), -math.sin(yaw), 0.0,
-                math.sin(yaw), math.cos(yaw), 0.0,
-                0.0, 0.0, 1.0,
-            ]
-        )
+        # Convert degrees to radians
+        pitch_radians = math.radians(pitch)
+        roll_radians = math.radians(roll)
+        yaw_radians = math.radians(yaw)
 
         # Pitch, or Y
         pitch_matrix = Matrix(
             3, 3,
             [
-                math.cos(pitch), 0.0, math.sin(pitch),
+                math.cos(pitch_radians), 0.0, math.sin(pitch_radians),
                 0.0, 1.0, 0.0,
-                -math.sin(pitch), 0.0, math.cos(pitch),
+                -math.sin(pitch_radians), 0.0, math.cos(pitch_radians),
             ]
         )
 
@@ -206,8 +201,18 @@ class Triangle:
             3, 3,
             [
                 1.0, 0.0, 0.0,
-                0.0, math.cos(roll), -math.sin(roll),
-                0.0, math.sin(roll), math.cos(roll),
+                0.0, math.cos(roll_radians), -math.sin(roll_radians),
+                0.0, math.sin(roll_radians), math.cos(roll_radians),
+            ]
+        )
+
+        # Yaw, or Z
+        yaw_matrix = Matrix(
+            3, 3,
+            [
+                math.cos(yaw_radians), -math.sin(yaw_radians), 0.0,
+                math.sin(yaw_radians), math.cos(yaw_radians), 0.0,
+                0.0, 0.0, 1.0,
             ]
         )
 

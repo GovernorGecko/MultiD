@@ -117,7 +117,7 @@ class Plane():
         returns
             str
         """
-        str(self.get_triangles())
+        return str(self.get_triangles())
 
     def __get_list_values_from_indexes(self, list_data, indexes):
         """
