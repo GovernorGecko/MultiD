@@ -8,6 +8,10 @@ TexCoord, optional, a Vector2
 Color, optional, a Vector3
 """
 
+
+import math
+
+from .matrix import Matrix
 from .vector import Vector3
 
 
@@ -101,6 +105,26 @@ class Triangle:
             return False
         return all(other.has_position(p) for p in self.__positions)
 
+    def __mul__(self, other):
+        """
+        parameters
+            Matrix
+        returns
+            Triangle
+        """
+        # Multiplying against a Matrix.
+        if type(other).__name__ == "Matrix":
+            return Triangle(
+                [
+                    Vector3(
+                        (other * p.get_matrix()).get_as_list()
+                    ) for p in self.__positions
+                ],
+                self.__colors,
+                self.__texcoords,
+            )
+        return self
+
     def get_colors(self):
         """
         returns
@@ -124,7 +148,7 @@ class Triangle:
         """
         if type(offset).__name__ == "Vector3":
             return Triangle(
-                [v + offset for v in self.__positions],
+                [p + offset for p in self.__positions],
                 self.__colors,
                 self.__texcoords
             )
@@ -137,6 +161,62 @@ class Triangle:
         """
         return self.__positions
 
+    def get_rotation(self, yaw=0.0, pitch=0.0, roll=0.0):
+        """
+        parameters
+            float
+                yaw, or z
+            float
+                pitch, or y
+            float
+                roll, or z
+        returns
+            Triangle
+        """
+
+        if (
+            not isinstance(yaw, (float, int)) or
+            not isinstance(pitch, (float, int)) or
+            not isinstance(roll, (float, int))
+        ):
+            ValueError("Yaw/Pitch/Roll must be a Float or Int")
+
+        # Yaw, or Z
+        yaw_matrix = Matrix(
+            3, 3,
+            [
+                math.cos(yaw), -math.sin(yaw), 0.0,
+                math.sin(yaw), math.cos(yaw), 0.0,
+                0.0, 0.0, 1.0,
+            ]
+        )
+
+        # Pitch, or Y
+        pitch_matrix = Matrix(
+            3, 3,
+            [
+                math.cos(pitch), 0.0, math.sin(pitch),
+                0.0, 1.0, 0.0,
+                -math.sin(pitch), 0.0, math.cos(pitch),
+            ]
+        )
+
+        # Roll, or X
+        roll_matrix = Matrix(
+            3, 3,
+            [
+                1.0, 0.0, 0.0,
+                0.0, math.cos(roll), -math.sin(roll),
+                0.0, math.sin(roll), math.cos(roll),
+            ]
+        )
+
+        # Order is Yaw * Pitch * Roll
+        rotation_matrix = yaw_matrix * pitch_matrix * roll_matrix
+
+        # Return a new Triangle
+        return self * rotation_matrix
+
     def get_texcoords(self):
         """
         returns
@@ -146,26 +226,52 @@ class Triangle:
 
     def get_vertex_data(
         self, positions=True, normals=True,
-        colors=True, texcoords=True
+        colors=True, texcoords=True,
+        offset=Vector3([0.0, 0.0, 0.0]),
+        yaw=0.0, pitch=0.0, roll=0.0
     ):
         """
         parameters
             4 optional bools; positions, normals, colors, texcoords.
-            These tell the getter to return these values or not.
+                These tell the getter to return these values or not.
+            Vector3
+                offset
+            float
+                yaw, or z
+            float
+                pitch, or y
+            float
+                roll, or x
         returns
             [[float x 6]] x 3 vertexes of this triangle.
         """
+
+        # Get a Transformed Triangle
+        transformed_triangle = self.get_offset_by(
+            offset
+        ).get_rotation(
+            yaw, pitch, roll
+        )
+
         vertex_data = []
         for i in range(0, 3):
             vertex = []
             if positions:
-                vertex.extend(self.__positions[i].get_tuple())
+                vertex.extend(
+                    transformed_triangle.get_positions()[i].get_tuple()
+                )
             if normals:
-                vertex.extend(self.__normals.get_tuple())
+                vertex.extend(
+                    transformed_triangle.get_normals().get_tuple()
+                )
             if colors and self.__colors is not None:
-                vertex.extend(self.__colors[i].get_tuple())
+                vertex.extend(
+                    transformed_triangle.get_colors()[i].get_tuple()
+                )
             if texcoords and self.__texcoords is not None:
-                vertex.extend(self.__texcoords[i].get_tuple())
+                vertex.extend(
+                    transformed_triangle.get_texcoords()[i].get_tuple()
+                )
             vertex_data.append(vertex)
         return vertex_data
         """

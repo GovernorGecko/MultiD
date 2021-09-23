@@ -12,7 +12,6 @@ from .vector import Vector3
 
 class Plane():
     """
-
     p1----p2
     |      |
     |      |
@@ -20,10 +19,8 @@ class Plane():
 
     parameters
         float
-        list[Vector2 x 4]         
+        list[Vector2 x 4]
         list[Vector3 x 4]
-
-    Yaw, Pitch, Roll
     """
 
     __slots__ = ["__triangles"]
@@ -71,7 +68,7 @@ class Plane():
             raise ValueError("Expected a List of 4 Vector2s for TexCoords")
 
         # Sequence of points
-        sequence_of_points = [  
+        sequence_of_points = [
             1, 0, 2,
             2, 3, 1,
         ]
@@ -133,7 +130,17 @@ class Plane():
         yaw=0.0, pitch=0.0, roll=0.0
     ):
         """
+        parameters
+            Vector3
+            float
+            float
+            float
+        returns
+            Vector3
         """
         return [
-            t.get_offset_by(offset) for t in self.__triangles
+            t.get_vertex_data(
+                offset=offset, yaw=yaw,
+                pitch=pitch, roll=roll
+            ) for t in self.__triangles
         ]
