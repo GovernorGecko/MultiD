@@ -42,7 +42,8 @@ plane = Plane(
 
 print(
     plane.get_triangles(
-        offset=Vector3(0.0, 0.0, 0.0)
+        offset=Vector3(1.0, 0.0, 0.0),
+        yaw=90.0
     )
 )
 

@@ -224,6 +224,30 @@ class Triangle:
         """
         return self.__texcoords
 
+    def get_transformed(
+        self,
+        offset=Vector3([0.0, 0.0, 0.0]),
+        yaw=0.0, pitch=0.0, roll=0.0,
+    ):
+        """
+        parameters
+            Vector3
+                offset
+            float
+                yaw, or z
+            float
+                pitch, or y
+            float
+                roll, or x
+        returns
+            Triangle
+        """
+        return self.get_offset_by(
+                offset
+            ).get_rotation(
+                yaw, pitch, roll
+            )
+
     def get_vertex_data(
         self, positions=True, normals=True,
         colors=True, texcoords=True,
@@ -247,10 +271,8 @@ class Triangle:
         """
 
         # Get a Transformed Triangle
-        transformed_triangle = self.get_offset_by(
-            offset
-        ).get_rotation(
-            yaw, pitch, roll
+        transformed_triangle = self.get_transformed(
+            offset, yaw, pitch, roll
         )
 
         vertex_data = []
