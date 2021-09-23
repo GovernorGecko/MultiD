@@ -35,13 +35,15 @@ print(matrix * other_matrix)
 """
 
 
-plane = Plane(
+p = Plane(
     colors=[c1, c2, c3, c1],
     texcoords=[t1, t2, t3, t4],
 )
 
+print(p)
+
 print(
-    plane.get_triangles(
+    p.get_triangles(
         offset=Vector3(1.0, 0.0, 0.0),
         yaw=90.0
     )
