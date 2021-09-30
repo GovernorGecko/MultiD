@@ -233,19 +233,22 @@ class Vector():
         return self
 
 
-class Vector2(Vector):
+def Vector2(x=0.0, y=0.0):
     """
     Vector2
     """
-
-    def __init__(self, *args):
-        Vector.__init__(self, *args, values=["x", "y"])
+    return Vector([x, y], values=["x", "y"])
 
 
-class Vector3(Vector):
+def Vector3(x=0.0, y=0.0, z=0.0):
     """
     Vector3
     """
+    return Vector([x, y, z], values=["x", "y", "z"])
 
-    def __init__(self, *args):
-        Vector.__init__(self, *args, values=["x", "y", "z"])
+
+def Vector4(x=0.0, y=0.0, z=0.0, w=0.0):
+    """
+    Vector4
+    """
+    return Vector([x, y, z, w], values=["x", "y", "z", "w"])

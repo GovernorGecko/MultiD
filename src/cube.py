@@ -2,6 +2,7 @@
 Cube
 """
 
+from .plane import Plane
 from .triangle import Triangle
 from .vector import Vector3
 
@@ -20,18 +21,18 @@ class Cube:
             List of Texcoords, starting at p1 and goign to p8
 
         p1----p2
-       /|*****/|
-      p3----p4*|
-      |*p5---|p6
-      |/*****|/
+       /|     /|
+      p3----p4 |
+      | p5---|p6
+      |/     |/
       p7----p8
     """
 
-    __slots__ = ["__triangles"]
+    __slots__ = ["__planes"]
 
     def __init__(
-        self, center,
-        colors=None, scale=1.0, texcoords=None
+        self, scale=1.0,
+        colors=None, texcoords=None
     ):
         self.__triangles = []
 

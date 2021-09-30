@@ -231,7 +231,7 @@ class Triangle:
 
     def get_transformed(
         self,
-        offset=Vector3([0.0, 0.0, 0.0]),
+        offset=Vector3(0.0, 0.0, 0.0),
         yaw=0.0, pitch=0.0, roll=0.0,
     ):
         """
@@ -256,7 +256,7 @@ class Triangle:
     def get_vertex_data(
         self, positions=True, normals=True,
         colors=True, texcoords=True,
-        offset=Vector3([0.0, 0.0, 0.0]),
+        offset=Vector3(0.0, 0.0, 0.0),
         yaw=0.0, pitch=0.0, roll=0.0
     ):
         """
