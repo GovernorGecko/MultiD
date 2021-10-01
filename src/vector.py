@@ -59,6 +59,8 @@ class Vector():
 
     def __init__(self, *args, values=[]):
 
+        print(values)
+
         # Requires a Dict for Values
         if (
             not isinstance(values, list) or
@@ -144,7 +146,9 @@ class Vector():
         return self.__class__(
             [j - k for (j, k) in zip(
                 self.get_list(), other.get_list()
-            )])
+            )],
+            values=list(self.__values.keys())
+        )
 
     def __truediv__(self, divider):
         """
