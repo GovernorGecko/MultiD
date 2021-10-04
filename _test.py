@@ -23,7 +23,7 @@ t3 = Vector2(0.0, 1.0)
 t4 = Vector2(1.0, 1.0)
 
 v4 = Vector4()
-print(type(v4))
+# print(type(v4))
 
 
 # s3d = Shape3D()
@@ -35,12 +35,15 @@ sd1 = ShapeData(
 
 sd2 = ShapeData(
     [0, 0, 0],
-    [Vector3(0.0, 0.0, 0.0)]
+    [Vector3(0.0, 0.0)]
 )
 
-s1 = Shape(sd1)
+# sd1_iter = iter(sd1)
+# print(next(sd1_iter))
 
-print(sd1 == sd2)
+s1 = Shape(sd1, texcoords=sd2)
+
+# print(sd1 == sd2)
 
 # import inspect
 # print(inspect.getmro(type(sd1)))

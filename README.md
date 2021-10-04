@@ -2,6 +2,10 @@
 3D/2D Classes
 
 # TODO
+- HEY
+    - Cube/Plane Func
+    - Shape has optional sequence, if only vectors builds sequence
+    - BigWorldDreams use Planes
 - Vector
     - Test Funcs instead of Objs?
     - Update Code

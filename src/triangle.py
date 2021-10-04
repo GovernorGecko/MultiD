@@ -30,8 +30,6 @@ class Triangle:
 
     def __init__(self, positions, colors=None, texcoords=None):
 
-        print(positions)
-
         # Position
         if (
             isinstance(positions, list) and len(positions) == 3 and
@@ -119,7 +117,7 @@ class Triangle:
             return Triangle(
                 [
                     Vector3(
-                        (other * p.get_matrix()).get_as_list()
+                        *(other * p.get_matrix()).get_as_list()
                     ) for p in self.__positions
                 ],
                 self.__colors,
@@ -230,7 +228,7 @@ class Triangle:
             List<Vector2> texcoords
         """
         return self.__texcoords
-
+ 
     def get_transformed(
         self,
         offset=Vector3(0.0, 0.0, 0.0),

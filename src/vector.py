@@ -59,8 +59,6 @@ class Vector():
 
     def __init__(self, *args, values=[]):
 
-        print(values)
-
         # Requires a Dict for Values
         if (
             not isinstance(values, list) or
