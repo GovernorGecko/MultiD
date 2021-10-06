@@ -3,41 +3,68 @@ Shape
 """
 
 from .triangle import Triangle
+from .vector import Vector3
 
 
 class ShapeData():
     """
+    required
+        list[Vector]
+            This list can coincide with a given sequence, if it doesn't
+            it'll be built out with one.
+    optional
+        list[Int]
+            Sequence of Vectors
+        int
+            How many vectors per
     """
 
-    __slots__ = [
-        "__iteration", "__sequence",
-        "__vectors", "__vectors_per_sequence"
-    ]
+    __slots__ = ["__sequence", "__vectors"]
 
-    def __init__(self, sequence, vectors, vectors_per_sequence=3):
+    def __init__(self, vectors, sequence=None):
 
-        # Type validation
+        # We require a list of vectors at least
         if (
-            not isinstance(sequence, list) or
-            not all(isinstance(s, int) for s in sequence) or
-            len(sequence) % vectors_per_sequence != 0
-        ):
-            raise ValueError(
-                f"Sequence must be a list of ints, "
-                f"divisible by {vectors_per_sequence}."
-            )
-        elif(
             not isinstance(vectors, list) or
             not all(type(v).__name__ == "Vector" for v in vectors)
         ):
-            raise ValueError("Values must be of type Vector.")
-        elif not all(s in range(len(vectors)) for s in sequence):
-            raise ValueError("Sequence values must be within vectors range.")
+            raise ValueError("Vectors must b e a list of Vectors.")
+        # If we did pass a sequence, need to make sure it is valid.
+        elif sequence is not None:
+            if (
+                not isinstance(sequence, list) or
+                not all(isinstance(s, int) for s in sequence) or
+                len(sequence) % 3 != 0
+            ):
+                raise ValueError(
+                    "Sequence must be a list of ints, "
+                    "divisible by 3"
+                )
+            elif not all(s in range(len(vectors)) for s in sequence):
+                raise ValueError(
+                    "Sequence values must be within vectors range."
+                )
 
-        # Store
-        self.__sequence = sequence
-        self.__vectors = vectors
-        self.__vectors_per_sequence = vectors_per_sequence
+        # Build a sequence!
+        if sequence is None:
+            self.__sequence = []
+            self.__vectors = []
+            for v in vectors:
+                if v not in self.__vectors:
+                    self.__sequence.append(
+                        len(self.__vectors)
+                    )
+                    self.__vectors.append(v)
+                else:
+                    self.__sequence.append(
+                        self.__vectors.index(
+                            v
+                        )
+                    )
+        # Just store the vals!
+        else:
+            self.__sequence = sequence
+            self.__vectors = vectors
 
     def __eq__(self, other):
         """
@@ -45,17 +72,6 @@ class ShapeData():
         if type(other).__name__ == type(self).__name__:
             return len(other.get_sequence()) == len(self.get_sequence())
         return False
-
-    def __iter__(self):
-        self.__iteration = 0
-        return self
-
-    def __next__(self):
-        if(self.__iteration >= self.get_triangle_count()):
-            raise StopIteration
-        result = self.get_triangle_data(self.__iteration)
-        self.__iteration += 1
-        return result
 
     def __str__(self):
         """
@@ -70,7 +86,7 @@ class ShapeData():
     def get_triangle_count(self):
         """
         """
-        return len(self.__sequence) / self.__vectors_per_sequence
+        return len(self.__sequence) / 3
 
     def get_triangle_data(self, i):
         """
@@ -113,30 +129,50 @@ class Shape():
 
     def __init__(
         self,
-        position_data,
-        color_data=None,
-        texcoord_data=None
+        sequence,
+        positions,
+        colors=None,
+        texcoords=None
     ):
 
         # Type Validation
         if (
-            not type(position_data).__name__ == "ShapeData" or
-            (
-                color_data is not None and
-                (
-                    not type(color_data).__name__ == "ShapeData" or
-                    color_data != position_data
-                )
-            ) or
-            (
-                texcoord_data is not None and
-                (
-                    not type(texcoord_data).__name__ == "ShapeData" or
-                    texcoord_data != position_data
-                )
+            not isinstance(sequence, list) or
+            not all(isinstance(s, int) for s in sequence)
+        ):
+            raise ValueError("Sequence must be a list of ints.")
+        elif(
+            not isinstance(positions, list) or
+            not all(
+                type(p).__name__ == "Vector" for p in positions
             )
         ):
-            raise ValueError("Data must be of type ShapeData")
+            raise ValueError("Positions must be Vectors")
+        elif(
+            not isinstance(colors, list) or
+            not all(
+                type(c).__name__ == "Vector" for c in colors
+            )
+        ):
+            raise ValueError("Colors must be Vectors")
+        elif(
+            not isinstance(texcoords, list) or
+            not all(
+                type(t).__name__ == "Vector" for t in texcoords
+            )
+        ):
+            raise ValueError("Texcoords must be Vectors")
+
+        # Create the ShapeData
+        position_data = ShapeData(positions, sequence)
+
+        color_data = None
+        if colors is not None:
+            color_data = ShapeData(colors, sequence)
+
+        texcoord_data = None
+        if texcoords is not None:
+            texcoord_data = ShapeData(texcoords, sequence)
 
         # Iterate our Triangles in
         self.__triangles = []
@@ -149,7 +185,10 @@ class Shape():
                 )
             )
 
-        print(self.__triangles)
+    def __str__(self):
+        """
+        """
+        return str(self.__triangles)
 
     def __get_shape_data_from_index(self, shape_data, i):
         """
@@ -163,3 +202,23 @@ class Shape():
         if shape_data is not None:
             return shape_data.get_triangle_data(i)
         return None
+
+    def get_triangles(
+        self, offset=Vector3(0.0, 0.0, 0.0),
+        yaw=0.0, pitch=0.0, roll=0.0
+    ):
+        """
+        parameters
+            Vector3
+            float
+            float
+            float
+        returns
+            Vector3
+        """
+        return [
+            t.get_transformed(
+                offset=offset, yaw=yaw,
+                pitch=pitch, roll=roll,
+            ) for t in self.__triangles
+        ]

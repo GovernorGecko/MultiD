@@ -2,10 +2,10 @@
 Testing MultiD features
 """
 
-from src.shape import ShapeData, Shape
+# from src.shape import ShapeData, Shape
 # from src.cube import Cube
 # from src.matrix import Matrix
-# from src.plane import Plane
+from src.plane import Plane
 # from src.triangle import Triangle
 from src.vector import Vector3, Vector2, Vector4
 
@@ -25,25 +25,40 @@ t4 = Vector2(1.0, 1.0)
 v4 = Vector4()
 # print(type(v4))
 
-
-# s3d = Shape3D()
-
+"""
 sd1 = ShapeData(
+    [p1, p2, p3],
     [0, 1, 2],
-    [p1, p2, p3]
 )
 
 sd2 = ShapeData(
-    [0, 0, 0],
-    [Vector3(0.0, 0.0)]
+    [
+        Vector2(0.0, 0.0),
+        Vector2(0.0, 0.0),
+        Vector2(0.0, 0.0),
+    ]
 )
+print(sd1 == sd2)
 
 # sd1_iter = iter(sd1)
 # print(next(sd1_iter))
 
-s1 = Shape(sd1, texcoords=sd2)
+s1 = Shape(sd1, texcoord_data=sd2)
+"""
 
-# print(sd1 == sd2)
+p = Plane(
+    colors=[c1, c2, c3, c1],
+    texcoords=[t1, t2, t3, t4],
+)
+
+print(p)
+
+print(
+    p.get_triangles(
+        offset=Vector3(1.0, 0.0, 0.0),
+        yaw=1.0
+    )
+)
 
 # import inspect
 # print(inspect.getmro(type(sd1)))
@@ -61,24 +76,6 @@ other_matrix.set_value(0, 1, 2.0)
 other_matrix.set_value(0, 2, 3.0)
 print(matrix * other_matrix)
 """
-
-"""
-p = Plane(
-    colors=[c1, c2, c3, c1],
-    texcoords=[t1, t2, t3, t4],
-)
-
-print(p)
-
-print(
-    p.get_triangles(
-        offset=Vector3(1.0, 0.0, 0.0),
-        yaw=1.0
-    )
-)
-
-"""
-
 
 """
 

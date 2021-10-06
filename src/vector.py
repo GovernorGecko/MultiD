@@ -118,7 +118,9 @@ class Vector():
         return self.__class__(
             [j + k for (j, k) in zip(
                 self.get_list(), other.get_list()
-            )])
+            )],
+            values=list(self.__values.keys())
+        )
 
     def __eq__(self, other):
         """
@@ -158,7 +160,8 @@ class Vector():
         if not isinstance(divider, int):
             raise ValueError("Expected divider to be an int")
         return self.__class__(
-            [j / divider for j in self.get_list()]
+            [j / divider for j in self.get_list()],
+            values=list(self.__values.keys())
         )
 
     def get(self):
