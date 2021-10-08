@@ -3,9 +3,9 @@ Testing MultiD features
 """
 
 # from src.shape import ShapeData, Shape
-# from src.cube import Cube
+from src.cube import Cube
 # from src.matrix import Matrix
-from src.plane import Plane
+# from src.plane import Plane
 # from src.triangle import Triangle
 from src.vector import Vector3, Vector2, Vector4
 
@@ -46,6 +46,7 @@ print(sd1 == sd2)
 s1 = Shape(sd1, texcoord_data=sd2)
 """
 
+"""
 p = Plane(
     colors=[c1, c2, c3, c1],
     texcoords=[t1, t2, t3, t4],
@@ -63,6 +64,8 @@ print(
 # import inspect
 # print(inspect.getmro(type(sd1)))
 # print(inspect.getmro(type(t1)))
+
+"""
 
 """
 matrix = Matrix(3, 1, [4.0, 5.0, 6.0])
@@ -89,7 +92,6 @@ print(t.get_vertex_data(offset=Vector3([1.0, 1.0, 1.0]), yaw=90))
 
 """
 
-"""
 
 color_data = [
     Vector3(1.0, 1.0, 1.0),
@@ -120,6 +122,12 @@ c = Cube(
 )
 
 print("testing a cube")
+
 print(c)
 
-"""
+print(
+    c.get_triangles(
+        offset=Vector3(1.0, 0.0, 0.0),
+        yaw=1.0
+    )
+)
