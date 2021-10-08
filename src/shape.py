@@ -149,16 +149,20 @@ class Shape():
         ):
             raise ValueError("Positions must be Vectors")
         elif(
-            not isinstance(colors, list) or
-            not all(
-                type(c).__name__ == "Vector" for c in colors
+            colors is not None and (
+                not isinstance(colors, list) or
+                not all(
+                    type(c).__name__ == "Vector" for c in colors
+                )
             )
         ):
             raise ValueError("Colors must be Vectors")
         elif(
-            not isinstance(texcoords, list) or
-            not all(
-                type(t).__name__ == "Vector" for t in texcoords
+            texcoords is not None and (
+                not isinstance(texcoords, list) or
+                not all(
+                    type(t).__name__ == "Vector" for t in texcoords
+                )
             )
         ):
             raise ValueError("Texcoords must be Vectors")
