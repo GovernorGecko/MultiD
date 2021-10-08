@@ -33,21 +33,21 @@ class Triangle:
         # Position
         if (
             isinstance(positions, list) and len(positions) == 3 and
-            all(type(p).__name__ == "Vector3" for p in positions)
+            all(type(p).__name__ == "Vector" for p in positions)
         ):
             self.__positions = positions
         else:
-            raise ValueError("Positions must be a List of Vector3s.")
+            raise ValueError("Positions must be a List of Vectors.")
 
         # Colors
         if colors is not None:
             if (
                 isinstance(colors, list) and len(colors) == 3 and
-                all(type(c).__name__ == "Vector3" for c in colors)
+                all(type(c).__name__ == "Vector" for c in colors)
             ):
                 self.__colors = colors
             else:
-                raise ValueError("Colors must be a List of Vector3s.")
+                raise ValueError("Colors must be a List of Vectors.")
         else:
             self.__colors = None
 
@@ -55,11 +55,11 @@ class Triangle:
         if texcoords is not None:
             if (
                 isinstance(texcoords, list) and len(texcoords) == 3 and
-                all(type(t).__name__ == "Vector2" for t in texcoords)
+                all(type(t).__name__ == "Vector" for t in texcoords)
             ):
                 self.__texcoords = texcoords
             else:
-                raise ValueError("TexCoords must be a List of Vector2s.")
+                raise ValueError("TexCoords must be a List of Vectors.")
         else:
             self.__texcoords = None
 
@@ -117,7 +117,7 @@ class Triangle:
             return Triangle(
                 [
                     Vector3(
-                        (other * p.get_matrix()).get_as_list()
+                        *(other * p.get_matrix()).get_as_list()
                     ) for p in self.__positions
                 ],
                 self.__colors,
@@ -228,10 +228,10 @@ class Triangle:
             List<Vector2> texcoords
         """
         return self.__texcoords
-
+ 
     def get_transformed(
         self,
-        offset=Vector3([0.0, 0.0, 0.0]),
+        offset=Vector3(0.0, 0.0, 0.0),
         yaw=0.0, pitch=0.0, roll=0.0,
     ):
         """
@@ -256,7 +256,7 @@ class Triangle:
     def get_vertex_data(
         self, positions=True, normals=True,
         colors=True, texcoords=True,
-        offset=Vector3([0.0, 0.0, 0.0]),
+        offset=Vector3(0.0, 0.0, 0.0),
         yaw=0.0, pitch=0.0, roll=0.0
     ):
         """

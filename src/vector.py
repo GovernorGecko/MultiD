@@ -118,7 +118,9 @@ class Vector():
         return self.__class__(
             [j + k for (j, k) in zip(
                 self.get_list(), other.get_list()
-            )])
+            )],
+            values=list(self.__values.keys())
+        )
 
     def __eq__(self, other):
         """
@@ -144,7 +146,9 @@ class Vector():
         return self.__class__(
             [j - k for (j, k) in zip(
                 self.get_list(), other.get_list()
-            )])
+            )],
+            values=list(self.__values.keys())
+        )
 
     def __truediv__(self, divider):
         """
@@ -156,7 +160,8 @@ class Vector():
         if not isinstance(divider, int):
             raise ValueError("Expected divider to be an int")
         return self.__class__(
-            [j / divider for j in self.get_list()]
+            [j / divider for j in self.get_list()],
+            values=list(self.__values.keys())
         )
 
     def get(self):
@@ -233,19 +238,22 @@ class Vector():
         return self
 
 
-class Vector2(Vector):
+def Vector2(x=0.0, y=0.0):
     """
     Vector2
     """
-
-    def __init__(self, *args):
-        Vector.__init__(self, *args, values=["x", "y"])
+    return Vector([x, y], values=["x", "y"])
 
 
-class Vector3(Vector):
+def Vector3(x=0.0, y=0.0, z=0.0):
     """
     Vector3
     """
+    return Vector([x, y, z], values=["x", "y", "z"])
 
-    def __init__(self, *args):
-        Vector.__init__(self, *args, values=["x", "y", "z"])
+
+def Vector4(x=0.0, y=0.0, z=0.0, w=0.0):
+    """
+    Vector4
+    """
+    return Vector([x, y, z, w], values=["x", "y", "z", "w"])
