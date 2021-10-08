@@ -117,7 +117,7 @@ texcoord_data = [
 
 c = Cube(
     scale=1.0,
-    colors=color_data,
+    # colors=color_data,
     texcoords=texcoord_data
 )
 
