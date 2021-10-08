@@ -134,6 +134,20 @@ class Vector():
             return False
         return self.get_list() == other.get_list()
 
+    def __mul__(self, multiplyer):
+        """
+        parameters
+            int/float
+        returns
+            Vector
+        """
+        if not isinstance(multiplyer, (float, int)):
+            raise ValueError("Expected Float or Int")
+        return self.__class__(
+            [j * multiplyer for j in self.get_list()],
+            values=list(self.__values.keys())
+        )
+
     def __sub__(self, other):
         """
         parameters
