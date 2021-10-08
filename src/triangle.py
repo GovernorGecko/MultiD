@@ -139,7 +139,7 @@ class Triangle:
         """
         return self.__normals
 
-    def get_offset_by(self, offset):
+    def get_offset(self, offset):
         """
         parameters
             Vector3
@@ -222,17 +222,31 @@ class Triangle:
         # Return a new Triangle
         return self * rotation_matrix
 
+    def get_scaled(self, scale=1.0):
+        """
+        """
+        """
+        parameters
+            Int, or Float
+        returns
+            Triangle
+        """
+        if isinstance(scale, (int, float)):
+            return self * scale
+        return self
+
     def get_texcoords(self):
         """
         returns
             List<Vector2> texcoords
         """
         return self.__texcoords
- 
+
     def get_transformed(
         self,
         offset=Vector3(0.0, 0.0, 0.0),
         yaw=0.0, pitch=0.0, roll=0.0,
+        scale=1.0,
     ):
         """
         parameters
@@ -247,10 +261,12 @@ class Triangle:
         returns
             Triangle
         """
-        return self.get_offset_by(
-                offset
+        return self.get_scaled(
+                scale
             ).get_rotation(
                 yaw, pitch, roll
+            ).get_offset(
+                offset
             )
 
     def get_vertex_data(

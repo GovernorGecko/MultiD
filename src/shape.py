@@ -68,6 +68,10 @@ class ShapeData():
 
     def __eq__(self, other):
         """
+        parameters
+            Shape
+        returns
+            bool
         """
         if type(other).__name__ == type(self).__name__:
             return len(other.get_sequence()) == len(self.get_sequence())
@@ -75,21 +79,31 @@ class ShapeData():
 
     def __str__(self):
         """
+        returns
+            string
         """
         return f"{self.__sequence} {self.__vectors}"
 
     def get_sequence(self):
         """
+        returns
+            list[int]
         """
         return self.__sequence
 
     def get_triangle_count(self):
         """
+        returns
+            int
         """
-        return len(self.__sequence) / 3
+        return int(len(self.__sequence) / 3)
 
     def get_triangle_data(self, i):
         """
+        parameters
+            int
+        returns
+            list
         """
         if i < self.get_triangle_count() and i >= 0:
             sequence_offset = i * 3
@@ -108,11 +122,17 @@ class ShapeData():
 
     def get_vectors(self):
         """
+        returns
+            list[Vector]
         """
         return self.__vectors
 
     def get_vector_at(self, i):
         """
+        parameters
+            int
+        returns
+            Vector
         """
         return self.__vectors[
             self.__sequence[
@@ -123,6 +143,13 @@ class ShapeData():
 
 class Shape():
     """
+    parameters
+        required
+            list[int]
+            list[Vector]
+        optional
+            list[Vector]
+            list[Vector]
     """
 
     __slots__ = ["__triangles"]
@@ -191,6 +218,8 @@ class Shape():
 
     def __str__(self):
         """
+        returns
+            string
         """
         return str(self.__triangles)
 
