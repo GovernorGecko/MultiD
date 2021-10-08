@@ -146,7 +146,7 @@ class Triangle:
         returns
             Triangle
         """
-        if type(offset).__name__ == "Vector3":
+        if type(offset).__name__ == "Vector":
             return Triangle(
                 [p + offset for p in self.__positions],
                 self.__colors,
@@ -315,6 +315,6 @@ class Triangle:
         returns
             bool of whether the given Vector3 matches one of ours.
         """
-        if not type(position).__name__ == "Vector3":
+        if not type(position).__name__ == "Vector":
             return False
         return position in self.__positions
